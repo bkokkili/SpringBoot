@@ -12,7 +12,7 @@ public class HelloController {
     }
     @RequestMapping("/test")
     public String test(){
-    return "test";
+    return "test successful";
     }
 
 }
