@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Objects;
 @Service
 public class MovieSearchService {
-    public String getClient(String searchTerm, String apiKey) throws JsonProcessingException {
+    public String getClient(String searchTerm, String apiKey) {
         StringBuilder mdb_url = new StringBuilder();
         mdb_url.append("https://www.omdbapi.com/?s=");
         mdb_url.append(searchTerm);
