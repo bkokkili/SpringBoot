@@ -33,7 +33,6 @@ public class MovieSearchService {
             objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
             return jsonArray.toString();
         }
-
         return jsonArray1.toString();
 
     }
