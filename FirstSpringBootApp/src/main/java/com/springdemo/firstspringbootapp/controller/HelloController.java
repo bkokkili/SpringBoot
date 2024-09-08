@@ -1,15 +1,15 @@
-package com.springdemo.firstspringbootapp;
+package com.springdemo.firstspringbootapp.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public  class HelloController {
+public class HelloController {
 
-    @GetMapping("/")
+    @GetMapping("/hello")
     public String hello() {
-        return "Welcome to SpringBoot";
+        return "Welcome to the SpringBoot Application";
     }
 
     @RequestMapping("/test")
