@@ -1,0 +1,16 @@
+department:
+  info: This Department app is implemented with Oracle DB and incorporates concepts like exception handling, unit testing and loggers.
+server:
+  port: 8081
+spring:
+  application:
+    name: DepartmentWithOracleDB
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    password: June@1520
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: system
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
