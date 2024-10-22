@@ -43,6 +43,12 @@ spring:
 department:
   info: This Department app is implemented with Oracle DB and incorporates concepts like exception handling, unit testing and loggers.
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
 ---
 spring:
   config:
