@@ -32,10 +32,10 @@ spring:
   application:
     name: DepartmentWithOracleDB
   datasource:
-    driver-class-name: oracle.jdbc.driver.OracleDriver
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/bkokkili
+    username: bkokkili
     password: June@1520
-    url: jdbc:oracle:thin:@localhost:1521:xe
-    username: system
   jpa:
     hibernate:
       ddl-auto: update
