@@ -1,0 +1,79 @@
+server:
+  port: 8081
+
+spring:
+  profiles:
+    active: dev
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  application:
+    name: seafoodveggies
+
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: system
+    password: Kunal@2324
+    driver-class-name: oracle.jdbc.OracleDriver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.OracleDialect
+        hql:
+          bulk_id_strategy: org.hibernate.hql.spi.id.inline.InlineIdsInClauseBulkIdStrategy
+#department:
+ # info: This Department app is implemented with Oracle DB and incorporates concepts like exception handling, unit testing and loggers.
+---
+spring:
+  config:
+    activate:
+      on-profile: qa
+  application:
+    name: seafoodveggies
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/bkokkili
+    username: bkokkili
+    password: June@1520
+  jpa:
+    hibernate:
+      ddl-auto: update
+      properties:
+        hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+department:
+#  info: This Department app is implemented with Oracle DB and incorporates concepts like exception handling, unit testing and loggers.
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  application:
+    name: seafoodveggies
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    password: June@1520
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: system
+  jpa:
+    hibernate:
+      ddl-auto: update  # 'validate' could be more suitable for prod
+      properties:
+        hibernate.dialect: org.hibernate.dialect.Oracle19cDialect
+    show-sql: true
+department:
+  # info: This Department app is implemented with Oracle DB and incorporates concepts like exception handling, unit testing and loggers.
+---
