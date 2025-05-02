@@ -2,6 +2,7 @@ package com.store.seafoodveggies.controller;
 
 import com.store.seafoodveggies.entity.Address;
 import com.store.seafoodveggies.entity.User;
+import com.store.seafoodveggies.exception.ResourceNotFoundException;
 import com.store.seafoodveggies.repo.UserRepository;
 import com.store.seafoodveggies.service.AddressService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ public class AddressController {
     @PostMapping("/add/{userId}")
     public ResponseEntity<String> addAddressToUser(@PathVariable Long userId, @RequestBody Address addressRequest) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
 
         addressRequest.setUser(user); // Set the owning side
         user.getAddresses().add(addressRequest); // Optional, if you maintain bidirectional consistency

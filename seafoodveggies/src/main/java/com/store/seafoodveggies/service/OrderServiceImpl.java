@@ -1,11 +1,11 @@
 package com.store.seafoodveggies.service;
 
-
 import com.store.seafoodveggies.dto.AddressDTO;
 import com.store.seafoodveggies.dto.OrderItemDTO;
 import com.store.seafoodveggies.dto.OrderItemResponseDTO;
 import com.store.seafoodveggies.dto.OrderResponseDTO;
 import com.store.seafoodveggies.entity.*;
+import com.store.seafoodveggies.exception.ResourceNotFoundException;
 import com.store.seafoodveggies.mappers.OrderMapper;
 import com.store.seafoodveggies.repo.AddressRepository;
 import com.store.seafoodveggies.repo.OrderRepository;
@@ -47,10 +47,10 @@ public class OrderServiceImpl implements OrderService {
 
     public OrderResponseDTO placeOrder(Long userId, Long addressId, List<OrderItemDTO> itemsRequest) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         Address address = addressRepository.findById(addressId)
-                .orElseThrow(() -> new RuntimeException("Address not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Address not found"));
 
         Order order = new Order();
         order.setUser(user);
@@ -63,10 +63,10 @@ public class OrderServiceImpl implements OrderService {
 
         for (OrderItemDTO req : itemsRequest) {
             Product product = productRepository.findById(req.getProductId())
-                    .orElseThrow(() -> new RuntimeException("Product not found: " + req.getProductId()));
+                    .orElseThrow(() -> new ResourceNotFoundException("Product not found: " + req.getProductId()));
 
             if (product.getStockQuantity() < req.getQuantity()) {
-                throw new RuntimeException("Insufficient stock for product: " + product.getName());
+                throw new ResourceNotFoundException("Insufficient stock for product: " + product.getName());
             }
 
             OrderItem item = new OrderItem();
@@ -125,7 +125,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderResponseDTO getOrderDetails(Long userId, Long orderId) {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new RuntimeException("Order not found with ID: " + orderId));
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found with ID: " + orderId));
 
         if (!order.getUser().getId().equals(userId)) {
             throw new RuntimeException("Access denied: Order does not belong to the user.");
@@ -139,7 +139,7 @@ public class OrderServiceImpl implements OrderService {
         LOG.info("Updating status for order ID: {}", orderId);
 
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new RuntimeException("Order not found with ID: " + orderId));
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found with ID: " + orderId));
 
         String normalizedStatus = status.toUpperCase();
         if (!List.of("PENDING", "ACCEPTED", "CANCELLED", "DELIVERED", "SHIPPED").contains(normalizedStatus)) {

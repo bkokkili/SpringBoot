@@ -1,6 +1,7 @@
 package com.store.seafoodveggies.service;
 
 import com.store.seafoodveggies.entity.Product;
+import com.store.seafoodveggies.exception.ResourceNotFoundException;
 import com.store.seafoodveggies.repo.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getProductById(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
     }
 
     @Override
