@@ -2,6 +2,7 @@ package com.store.seafoodveggies.controller;
 
 import com.store.seafoodveggies.dto.OrderRequest;
 import com.store.seafoodveggies.dto.OrderResponseDTO;
+import com.store.seafoodveggies.dto.OrderStatusUpdateRequest;
 import com.store.seafoodveggies.entity.Order;
 import com.store.seafoodveggies.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,8 @@ public class OrderController {
     @PutMapping("/{orderId}/status")
     public ResponseEntity<OrderResponseDTO> updateOrderStatus(
             @PathVariable Long orderId,
-            @RequestParam String status) {
-        OrderResponseDTO updatedOrder = orderService.updateOrderStatus(orderId, status);
+            @RequestBody OrderStatusUpdateRequest request) {
+        OrderResponseDTO updatedOrder = orderService.updateOrderStatus(orderId, request.getStatus());
         return ResponseEntity.ok(updatedOrder);
     }
 

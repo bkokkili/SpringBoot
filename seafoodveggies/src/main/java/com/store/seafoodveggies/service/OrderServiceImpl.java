@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class OrderServiceImpl implements OrderService {
 
     private static  final Logger LOG = LoggerFactory.getLogger(OrderServiceImpl.class);
@@ -146,7 +147,12 @@ public class OrderServiceImpl implements OrderService {
         }
 
         order.setOrderStatus(normalizedStatus);
-        orderRepository.save(order);
+        try {
+            orderRepository.save(order);
+            LOG.info("Order saved successfully");
+        } catch (Exception e) {
+            LOG.error("Exception while saving order", e);
+        }
 
         LOG.info("Order status updated to {}", normalizedStatus);
         return orderMapper.toOrderResponseDTO(order);
