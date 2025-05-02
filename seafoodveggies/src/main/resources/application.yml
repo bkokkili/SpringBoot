@@ -10,6 +10,15 @@ spring:
     activate:
       on-profile: dev
 
+  logging:
+    level:
+      org:
+        hibernate:
+          SQL: DEBUG
+          type:
+            descriptor:
+              sql: TRACE
+
   application:
     name: seafoodveggies
 

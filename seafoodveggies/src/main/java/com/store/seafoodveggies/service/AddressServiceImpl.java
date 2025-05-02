@@ -39,7 +39,7 @@ public class AddressServiceImpl implements AddressService{
     }
 
     @Override
-    public Address updateAddress(int userId, Long addressId, Address updatedAddress) {
+    public Address updateAddress(Long userId, Long addressId, Address updatedAddress) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
 
@@ -60,13 +60,13 @@ public class AddressServiceImpl implements AddressService{
         existingAddress.setState(updatedAddress.getState());
         existingAddress.setPostalCode(updatedAddress.getPostalCode());
         existingAddress.setCountry(updatedAddress.getCountry());
-        existingAddress.setDefault(updatedAddress.getDefault());
+        existingAddress.setIsDefault(updatedAddress.getIsDefault());
 
         return addressRepository.save(existingAddress);
     }
 
     @Override
-    public void deleteAddress(int userId, Long addressId) {
+    public void deleteAddress(Long userId, Long addressId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
 

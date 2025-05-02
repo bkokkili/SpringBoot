@@ -24,7 +24,7 @@ public class UserServiceImpl implements  UserService{
     }
 
     @Override
-    public void deleteUser(int id) {
+    public void deleteUser(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
 
@@ -33,7 +33,7 @@ public class UserServiceImpl implements  UserService{
 
 
     @Override
-    public User updateUser(int id, User updatedUser) {
+    public User updateUser(Long id, User updatedUser) {
         return userRepository.findById(id).map(existingUser -> {
             existingUser.setUserName(updatedUser.getUserName());
             existingUser.setEmail(updatedUser.getEmail());

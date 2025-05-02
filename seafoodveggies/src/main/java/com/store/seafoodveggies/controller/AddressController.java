@@ -22,7 +22,7 @@ public class AddressController {
     private AddressService addressService;
 
     @PostMapping("/add/{userId}")
-    public ResponseEntity<String> addAddressToUser(@PathVariable int userId, @RequestBody Address addressRequest) {
+    public ResponseEntity<String> addAddressToUser(@PathVariable Long userId, @RequestBody Address addressRequest) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
 
@@ -37,7 +37,7 @@ public class AddressController {
 
     @PutMapping("/update/{userId}/{addressId}")
     public ResponseEntity<Address> updateAddress(
-            @PathVariable int userId,
+            @PathVariable Long userId,
             @PathVariable Long addressId,
             @RequestBody Address addressRequest) {
 
@@ -46,7 +46,7 @@ public class AddressController {
     }
 
     @DeleteMapping("/delete/{userId}/{addressId}")
-    public ResponseEntity<String> deleteAddress(@PathVariable int userId, @PathVariable Long addressId) {
+    public ResponseEntity<String> deleteAddress(@PathVariable Long userId, @PathVariable Long addressId) {
         addressService.deleteAddress(userId, addressId);
         return ResponseEntity.ok("Address deleted successfully for user id: " + userId);
     }
