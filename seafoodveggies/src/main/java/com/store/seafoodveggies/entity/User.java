@@ -25,6 +25,7 @@ public class User {
     private String password;
     private String email;
     private String mobile;
+   // private String role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference

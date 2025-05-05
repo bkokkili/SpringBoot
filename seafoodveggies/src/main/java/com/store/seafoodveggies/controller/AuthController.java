@@ -1,17 +1,27 @@
 package com.store.seafoodveggies.controller;
 
+import com.store.seafoodveggies.dto.LoginDto;
+import com.store.seafoodveggies.dto.LoginResponseDto;
+import com.store.seafoodveggies.dto.RefreshTokenResponse;
 import com.store.seafoodveggies.entity.User;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.store.seafoodveggies.service.LoginService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user")
 public class AuthController {
 
+    @Autowired
+    private LoginService loginService;
+
     @PostMapping("/login")
-    public User login(@RequestBody User user){
-        return null;
+    public LoginResponseDto login(@RequestBody LoginDto loginDto){
+        return loginService.loginUser(loginDto);
     }
+
+    public RefreshTokenResponse refreshToken(@PathVariable String refreshToken){
+        return loginService.refreshAccessToken(refreshToken);
+    }
+
 }
